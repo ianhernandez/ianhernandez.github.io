@@ -1,9 +1,26 @@
 import React from "react"
 import PropTypes from "prop-types"
 import { StaticQuery, graphql } from "gatsby"
+import Footer from "../components/footer"
+import styled , { createGlobalStyle } from "styled-components"
 
-import Header from "./header"
-import "./layout.css"
+const SiteWrapper = styled.div`
+  width: 100%;
+`;
+
+const GlobalStyle = createGlobalStyle`
+  @import url("https://use.typekit.net/wuz8amg.css");
+
+  body{
+    font-family: proxima-nova, "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", HelveticaNeue, Helvetica, Arial, sans-serif;
+    padding: 0;
+    margin: 0;
+    font-weight: 100;
+  }
+  img{
+    max-width: 100%;
+  }
+`
 
 const Layout = ({ children }) => (
   <StaticQuery
@@ -18,22 +35,11 @@ const Layout = ({ children }) => (
     `}
     render={data => (
       <>
-        <Header siteTitle={data.site.siteMetadata.title} />
-        <div
-          style={{
-            margin: `0 auto`,
-            maxWidth: 960,
-            padding: `0px 1.0875rem 1.45rem`,
-            paddingTop: 0,
-          }}
-        >
-          <main>{children}</main>
-          <footer>
-            © {new Date().getFullYear()}, Built with
-            {` `}
-            <a href="https://www.gatsbyjs.org">Gatsby</a>
-          </footer>
-        </div>
+      <GlobalStyle />
+      <SiteWrapper>
+        <main>{children}</main>
+        <Footer></Footer>
+      </SiteWrapper>
       </>
     )}
   />

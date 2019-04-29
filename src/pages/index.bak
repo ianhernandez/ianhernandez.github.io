@@ -1,0 +1,75 @@
+import React from "react"
+import { Link } from "gatsby"
+
+import Layout from "../components/layout"
+import Image from "../components/image"
+import SEO from "../components/seo"
+import Hero from "../components/hero"
+import styled from "styled-components"
+
+
+const PortfolioWrapper = styled.div`
+    border: 1px solid red;
+`;
+
+const Companies = styled.ul`
+    border: 1px solid blue;
+`;
+
+const Company = styled.li`
+    border: 1px solid green;
+`;
+
+const IndexPage = ({data}) => (
+  <Layout>
+        <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
+        <Hero></Hero>
+        <PortfolioWrapper>
+        <Companies>
+        {data.allMarkdownRemark.edges.map(post => (
+          <Company><Link key={post.node.id} to={post.node.frontmatter.path}>{post.node.frontmatter.title}</Link></Company>
+        ))}
+        </Companies>
+        </PortfolioWrapper>
+        
+        <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
+          <Image />
+        </div>
+        <Link to="/page-2/">Go to page 2</Link>
+  </Layout>
+)
+
+// class App extends React.Component {
+//   render() {
+//     return (
+//       <Layout>
+//         <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
+//         <Hero></Hero>
+//         <PortfolioPreview></PortfolioPreview>
+//         <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
+//           <Image />
+//         </div>
+//         <Link to="/page-2/">Go to page 2</Link>
+//       </Layout>
+//     )
+//   }
+// }
+
+export const pageQuery = graphql`
+  query IndexQuery {
+    allMarkdownRemark(limit: 10) {
+      edges {
+        node {
+          id
+          frontmatter{
+            title
+            path
+          }
+        }
+      }
+    }
+  }
+
+`
+
+export default IndexPage
