@@ -110,14 +110,17 @@ class IndexPage extends React.Component{
     this.state = {
       imgSrc: 'https://i.postimg.cc/HxVyDF8M/Artboard-15.png',
       centerComputed: 0,
-      height: window.innerHeight,
-      width: window.innerWidth,
+      
     };
     this.updateDimensions = this.updateDimensions.bind(this);
   }
 
   componentDidMount() {
     window.addEventListener("resize", this.updateDimensions);
+    this.setState({
+      height: window.innerHeight,
+      width: window.innerWidth,
+    })
   }
 
   componentWillUnmount() {
